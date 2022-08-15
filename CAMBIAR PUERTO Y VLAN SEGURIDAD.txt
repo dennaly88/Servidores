@@ -1,0 +1,45 @@
+________________________________________________________________________
+______________________
+PARA CAMBIAR  PUERTO
+______________________
+
+ENTRAR 
+
+root@inventario-imagen:/etc/ssh#  nano  sshd_config
+
+
+Include /etc/ssh/sshd_config.d/*.conf
+
+Port 22
+
+
+Y CAMBIAS EL PUERTO
+
+
+
+_________________________________________________________________________
+
+____________________
+PARA ESTABLECER POR IP O VLAN 
+_____________________
+
+desarrollo@COMEDORVTV:/etc$ nano hosts.allow 
+
+#VLAN 22
+sshd: 192.168.22.0/24
+
+#VLAN 21
+sshd: 192.168.21.0/24
+
+#PC-DANNY
+sshd: 192.168.7.95
+
+
+________________________________________________________________________
+
+
+
+
+
+
+

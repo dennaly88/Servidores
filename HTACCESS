@@ -1,0 +1,97 @@
+________________________________________________________________________
+                                                                         QUE ES .htaccess
+ 
+ ________________________________________________________________________                                                                        
+
+El archivo .htaccess de tu web será como la tabla de los mandamientos para el servidor Apache, que cumplirá estrictamente lo que se le indique en el archivo .htaccess.
+
+De la misma forma, el archivo .htaccess se utiliza para configurar otros muchos aspectos de tu web; como las tareas de protección, mediante la restricción del acceso a determinadas carpetas de tu servidor o bloqueando el acceso a determinadas direcciones IP; redireccionar a pantallas de error personalizadas, como en el caso de los errores 404; evitar vulnerabilidades y accesos no permitidos, como el listado de los directorios que forman tu web o reducir el tiempo de carga de tu página
+
+_____________________________________
+- Redireccionar página vieja a una nueva en el mismo sitio
+____________________________________
+
+RewriteEngine on
+Redirect 301 /vieja.html /nueva.html 
+
+____________________________________
+- Redireccionar página vieja a una nueva en otro sitio.
+____________________________________
+
+RewriteEngine on
+Redirect 301 /vieja.html http://otrositio/nueva.html 
+
+_______________________________________
+- Redireccionar todos los archivos en un directorio a otro directorio
+_______________________________________
+
+RewriteEngine on
+Redirect 301 /docs/ http://new.example.com/docs/ 
+
+_____________________________________
+- Redireccionar a una página todas las páginas de un directorio
+_____________________________________
+
+
+RewriteOptions inherit
+RewriteEngine On
+RewriteRule ^(.*)$ https://pagina.html [R=301,L] 
+
+
+______________________________________
+- Redireccionar un sitio sin WWW a direcciones con WWW.
+______________________________________
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^example.com [NC]
+RewriteRule ^(.*)$ http://www.example.com/$1 [L,R=301] 
+____________________________________________________
+La misma acción anterior, pero sin especificar el nombre del dominio y usar HTTP y HTTPS:
+____________________________________________________
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} !^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
+
+RewriteCond %{HTTPS} on
+RewriteCond %{HTTP_HOST} !^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
+
+
+____________________________________
+- Redireccionar un sitio con WWW a direcciones sin WWW.
+____________________________________
+
+RewriteEngine on
+rewritecond %{http_host} ^www.norfipc.com [nc]
+rewriterule ^(.*)$ http://norfipc.com/$1 [r=301,nc] 
+
+________________________________________
+La misma acción anterior, pero sin especificar el nombre del dominio
+________________________________________
+
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L] 
+
+______________________________________
+Lo mismo pero para redireccionar y usar HTTP y HTTPS:
+______________________________________
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+RewriteCond %{HTTPS} on
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+______________________________________
+- Usar HTTPS en todo el sitio. Dos opciones.
+______________________________________
+
+RewriteCond %{HTTPS} !on
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301] 
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://www.example.com/$1 [R=301,L] 
+
+- Usar HTTPS solo en un directorio del sitio.
+<If "%{SERVER_PROTOCOL} != 'HTTPS'">
+Redirect 301 /directorio/ https://sitio.com/directorio/
+</If> 

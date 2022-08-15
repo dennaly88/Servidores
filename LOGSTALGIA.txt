@@ -1,0 +1,39 @@
+
+________________________________________________________________________
+                                                                              INSTALACION
+________________________________________________________________________
+
+sudo apt-get update
+sudo apt-get install logstalgia
+
+
+________________________________________________________________________
+
+conexion interna
+
+root@desarrollo:/home/desarrollo# tail -f /var/log/apache2/access.log | logstalgia;
+
+
+
+_________________________________________________________________________
+
+conexion remota
+
+
+ssh danny@192.168.7.95 tail -f /var/log/apache2/access.log | logstalgia --sync
+
+
+ssh desarrollo@192.168.7.115 tail -f /var/log/apache2/access.log | logstalgia;
+
+
+ssh danny@192.168.7.95 tail -f /var/log/apache2/access.log | logstalgia --sync  
+
+________________________________________________________________________
+
+
+
+
+
+
+
+
