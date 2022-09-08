@@ -27,8 +27,7 @@ ____________________________________
 
 ENVIAS LA LLAVE HACIA EL SERVIDOR 
 
-scp -r danny.pub desarrollo@192.168.5.121:/home/desarrollo
-
+scp -r id_rsa.pub desarrollo@192.168.5.123:/home/desarrollo/.ssh/authorized_keys
 
 ___________________________________________
 
